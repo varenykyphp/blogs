@@ -3,11 +3,15 @@
 
 use App\Http\Kernel;
 use Illuminate\Support\Facades\Route;
+use Varenyky\Http\Middleware\Authenticate;
+
+use VarenykyBlog\Http\Controllers\BlogCategoryController;
+use VarenykyBlog\Http\Controllers\BlogController;
 
 Route::prefix(config('varenyky.path'))->name('admin.')->middleware(resolve(Kernel::class)->getMiddlewareGroups()['web'])->group(function () {
     Route::group(['middleware' => [Authenticate::class]], function () {
-        // Route::resource('/blogcategories', LanguageController::class);
-        // Route::resource('/blogs', CountryController::class);
+        Route::resource('/blogcategories', BlogCategoryController::class);
+        Route::resource('/blogs', BlogController::class);
     });
 });
 
